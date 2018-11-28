@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">LoginApplication</string>
+    <string name="google_account">Google Account</string>
+    <string name="login">Login</string>
+    <string name="username">username:</string>
+    <string name="password">password:</string>
+    <string name="interstellar">Interstellar</string>
+    <string name="sci_fi_adventure">SCI-FI, Adventure</string>
+    <string name="matthew_mcconaughey">Matthew McConaughey</string>
+    <string name="movie_description">A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival.</string>
+    <string name="go_to_interstellar_imdb">Go to Interstellar IMDB</string>
+</resources>
