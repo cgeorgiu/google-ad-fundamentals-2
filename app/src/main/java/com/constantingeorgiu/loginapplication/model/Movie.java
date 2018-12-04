@@ -10,15 +10,22 @@ public class Movie {
     private String photoBase64;
     private ArrayList<RelatedMovie> relatedMovieArrayList;
 
-    public Movie(String name, String shortDescription,
-                 String genre, float rating, String photoBase64,
-                 ArrayList<RelatedMovie> relatedMovieArrayList) {
+    public Movie(String name, String shortDescription, String genre, float rating, String photoBase64, ArrayList<RelatedMovie> relatedMovieArrayList) {
         this.name = name;
         this.shortDescription = shortDescription;
         this.genre = genre;
         this.rating = rating;
         this.photoBase64 = photoBase64;
         this.relatedMovieArrayList = relatedMovieArrayList;
+    }
+
+    public Movie(String name, String shortDescription, String genre, float rating, String photoBase64) {
+        this.name = name;
+        this.shortDescription = shortDescription;
+        this.genre = genre;
+        this.rating = rating;
+        this.photoBase64 = photoBase64;
+        this.relatedMovieArrayList = new ArrayList<>();
     }
 
     public String getName() {

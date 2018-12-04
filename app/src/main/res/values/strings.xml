@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">LoginApplication</string>
+    <string name="app_name">MyMovies</string>
     <string name="google_account">Google Account</string>
     <string name="login">Login</string>
     <string name="username">username:</string>

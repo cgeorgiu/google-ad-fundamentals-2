@@ -13,13 +13,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="@string/google_account"
+        android:layout_marginBottom="20dp"
+        android:text="@string/app_name"
         android:textSize="30sp" />
 
     <LinearLayout
         android:id="@+id/llUserNameContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="5dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -27,14 +29,20 @@
             android:id="@+id/ivUserIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_user"
+            android:tint="@android:color/white" />
 
         <EditText
             android:id="@+id/etUsername"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:hint="@string/username"
-            android:inputType="textEmailAddress" />
+            android:inputType="textEmailAddress"
+            android:padding="10dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -48,19 +56,26 @@
             android:id="@+id/ivPasswordIcon"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@drawable/ic_launcher_background" />
+            android:layout_marginRight="10dp"
+            android:background="@color/colorAccent"
+            android:padding="5dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_password"
+            android:tint="@android:color/white" />
 
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:hint="@string/password"
-            android:inputType="textEmailAddress|textPassword" />
+            android:inputType="textEmailAddress|textPassword"
+            android:padding="10dp" />
     </LinearLayout>
 
     <Button
         android:id="@+id/btnLogin"
-        android:layout_width="240dp"
+        android:layout_width="260dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="@string/login" />
 </LinearLayout>
