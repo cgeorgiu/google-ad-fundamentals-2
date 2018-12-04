@@ -8,7 +8,7 @@ import android.widget.TextView;
 
 import com.constantingeorgiu.loginapplication.R;
 
-public class MainActivity extends AppCompatActivity {
+public class MovieDetailActivity extends AppCompatActivity {
 
     private TextView tvMovieLink;
 
@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
         tvMovieLink.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, WebViewActivity.class));
+                startActivity(new Intent(MovieDetailActivity.this, WebViewActivity.class));
             }
         });
     }
