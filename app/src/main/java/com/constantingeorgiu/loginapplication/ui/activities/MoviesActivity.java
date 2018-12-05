@@ -7,6 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.constantingeorgiu.loginapplication.Constants;
 import com.constantingeorgiu.loginapplication.R;
 import com.constantingeorgiu.loginapplication.model.Movie;
 import com.constantingeorgiu.loginapplication.ui.adapters.AdapterItemClickListener;
@@ -65,7 +66,17 @@ public class MoviesActivity extends AppCompatActivity {
         mAdapter = new MoviesAdapter(moviesList, new AdapterItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                startActivity(new Intent(MoviesActivity.this, MovieDetailActivity.class));
+                if (position != 2) {
+                    Movie clickedMovie = moviesList.get(position);
+                    Intent intent = new Intent(MoviesActivity.this, MovieDetailActivity.class);
+                    intent.putExtra(Constants.MOVIE_NAME, clickedMovie.getName());
+                    intent.putExtra(Constants.MOVIE_DESCRIPTION, clickedMovie.getShortDescription());
+                    intent.putExtra(Constants.MOVIE_RATING, clickedMovie.getRating());
+                    intent.putExtra(Constants.MOVIE_PHOTO, clickedMovie.getPhotoBase64());
+                    startActivity(intent);
+                } else {
+                    startActivity(new Intent(MoviesActivity.this, MovieDetailActivity.class));
+                }
             }
         });
         mRecyclerView.setAdapter(mAdapter);
