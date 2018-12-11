@@ -28,8 +28,8 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String usernameFromForm = etUserName.getText().toString();
-                String passwordFromForm = etPassword.getText().toString();
+                String usernameFromForm = etUserName.getText().toString().trim();
+                String passwordFromForm = etPassword.getText().toString().trim();
 
                 if (usernameFromForm.isEmpty()) {
                     etUserName.setError("Please enter a username");
@@ -56,7 +56,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 Toast.makeText(LoginActivity.this, "Logged in", Toast.LENGTH_SHORT).show();
-                startActivity(new Intent(LoginActivity.this, MoviesActivity.class));
+                startActivity(new Intent(LoginActivity.this, MovieListActivity.class));
             }
         });
 

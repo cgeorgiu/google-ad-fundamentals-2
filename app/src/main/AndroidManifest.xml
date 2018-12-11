@@ -14,12 +14,25 @@
         <activity android:name=".ui.activities.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.MovieDetailActivity" />
+        <activity
+            android:name=".ui.activities.MovieDetailActivity"
+            android:label="@string/title_movie_detail"
+            android:parentActivityName=".ui.activities.MovieListActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.constantingeorgiu.loginapplication.ui.activities.MovieListActivity" />
+        </activity>
         <activity android:name=".ui.activities.MoviesActivity" />
         <activity android:name=".ui.activities.WebViewActivity" />
+        <activity
+            android:name=".ui.activities.MovieListActivity"
+            android:label="@string/title_movie_list"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

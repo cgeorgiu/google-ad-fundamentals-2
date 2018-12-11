@@ -6,26 +6,34 @@ public class Movie {
     private String name;
     private String shortDescription;
     private String genre;
+    private String actors;
+    private int year;
+    private String imdbURL;
     private float rating;
     private String photoBase64;
     private ArrayList<RelatedMovie> relatedMovieArrayList;
 
-    public Movie(String name, String shortDescription, String genre, float rating, String photoBase64, ArrayList<RelatedMovie> relatedMovieArrayList) {
+    public Movie(String name, String shortDescription, String genre, String actors, int year, String imdbURL, float rating, String photoBase64, ArrayList<RelatedMovie> relatedMovieArrayList) {
         this.name = name;
         this.shortDescription = shortDescription;
         this.genre = genre;
+        this.actors = actors;
+        this.year = year;
+        this.imdbURL = imdbURL;
         this.rating = rating;
         this.photoBase64 = photoBase64;
         this.relatedMovieArrayList = relatedMovieArrayList;
     }
 
-    public Movie(String name, String shortDescription, String genre, float rating, String photoBase64) {
+    public Movie(String name, String shortDescription, String genre, String actors, int year, String imdbURL, float rating, String photoBase64) {
         this.name = name;
         this.shortDescription = shortDescription;
         this.genre = genre;
+        this.actors = actors;
+        this.year = year;
+        this.imdbURL = imdbURL;
         this.rating = rating;
         this.photoBase64 = photoBase64;
-        this.relatedMovieArrayList = new ArrayList<>();
     }
 
     public String getName() {
@@ -50,6 +58,30 @@ public class Movie {
 
     public void setGenre(String genre) {
         this.genre = genre;
+    }
+
+    public String getActors() {
+        return actors;
+    }
+
+    public void setActors(String actors) {
+        this.actors = actors;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public String getImdbURL() {
+        return imdbURL;
+    }
+
+    public void setImdbURL(String imdbURL) {
+        this.imdbURL = imdbURL;
     }
 
     public float getRating() {

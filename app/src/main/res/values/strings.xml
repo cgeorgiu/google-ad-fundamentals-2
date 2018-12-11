@@ -9,4 +9,7 @@
     <string name="matthew_mcconaughey">Matthew McConaughey</string>
     <string name="movie_description">A team of explorers travel through a wormhole in space in an attempt to ensure humanity\'s survival.</string>
     <string name="go_to_interstellar_imdb">Go to Interstellar IMDB</string>
+    <string name="title_movie_list">Main</string>
+    <string name="title_movie_detail">Movie Detail</string>
+    <string name="_2014">2014</string>
 </resources>
