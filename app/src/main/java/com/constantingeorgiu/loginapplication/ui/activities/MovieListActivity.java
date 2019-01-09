@@ -15,12 +15,15 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.constantingeorgiu.loginapplication.Constants;
 import com.constantingeorgiu.loginapplication.R;
 
 import com.constantingeorgiu.loginapplication.model.Movie;
 import com.constantingeorgiu.loginapplication.dummy.DummyContent;
+import com.constantingeorgiu.loginapplication.net.MovieService;
+import com.constantingeorgiu.loginapplication.net.RetrofitClient;
 import com.constantingeorgiu.loginapplication.ui.adapters.AdapterItemClickListener;
 import com.constantingeorgiu.loginapplication.ui.adapters.MoviesAdapter;
 import com.constantingeorgiu.loginapplication.ui.fragments.MovieDetailFragment;
@@ -28,6 +31,10 @@ import com.constantingeorgiu.loginapplication.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * An activity representing a list of Main. This activity
@@ -46,6 +53,7 @@ public class MovieListActivity extends AppCompatActivity {
 
     private ArrayList<Movie> moviesArrayList;
     private MoviesAdapter moviesAdapter;
+    private RecyclerView recyclerView;
     private boolean mTwoPane;
 
     @Override
@@ -66,8 +74,9 @@ public class MovieListActivity extends AppCompatActivity {
             }
         });
 
-        DummyContent dummyContent = new DummyContent();
-        moviesArrayList = dummyContent.getMoviesList();
+        recyclerView = findViewById(R.id.movie_list);
+//        DummyContent dummyContent = new DummyContent();
+//        moviesArrayList = dummyContent.getMoviesList();
 
         if (findViewById(R.id.movie_detail_container) != null) {
             // The detail container view will be present only in the
@@ -76,38 +85,64 @@ public class MovieListActivity extends AppCompatActivity {
             // activity should be in two-pane mode.
             mTwoPane = true;
         }
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        loadMovies();
+    }
+
+    private void populateMovieList(ArrayList<Movie> movies) {
+        moviesArrayList = movies;
         moviesAdapter = new MoviesAdapter(moviesArrayList, new AdapterItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                Movie item = moviesArrayList.get(position);
-                Bundle arguments = new Bundle();
-                arguments.putString(Constants.MOVIE_NAME, item.getName());
-                arguments.putString(Constants.MOVIE_DESCRIPTION, item.getShortDescription());
-                arguments.putFloat(Constants.MOVIE_RATING, item.getRating());
-                arguments.putString(Constants.MOVIE_GENRE, item.getGenre());
-                arguments.putInt(Constants.MOVIE_YEAR, item.getYear());
-                arguments.putString(Constants.MOVIE_ACTORS, item.getActors());
-                arguments.putString(Constants.MOVIE_IMDB_LINK, item.getImdbURL());
-                arguments.putString(Constants.MOVIE_PHOTO, item.getPhotoBase64());
-
-                if (mTwoPane) {
-                    MovieDetailFragment fragment = new MovieDetailFragment();
-                    fragment.setArguments(arguments);
-                    getSupportFragmentManager().beginTransaction()
-                            .replace(R.id.movie_detail_container, fragment)
-                            .commit();
-                } else {
-                    Context context = view.getContext();
-                    Intent intent = new Intent(context, MovieDetailActivity.class);
-                    intent.putExtras(arguments);
-                    context.startActivity(intent);
-                }
+                onMovieClicked(view, position);
             }
         });
-        View recyclerView = findViewById(R.id.movie_list);
-        assert recyclerView != null;
         setupRecyclerView((RecyclerView) recyclerView);
+    }
+
+    private void onMovieClicked(View view, int position) {
+        Movie item = moviesArrayList.get(position);
+        Bundle arguments = new Bundle();
+        arguments.putString(Constants.MOVIE_NAME, item.getName());
+        arguments.putString(Constants.MOVIE_DESCRIPTION, item.getShortDescription());
+        arguments.putFloat(Constants.MOVIE_RATING, item.getRating());
+        arguments.putString(Constants.MOVIE_GENRE, item.getGenre());
+        arguments.putInt(Constants.MOVIE_YEAR, item.getYear());
+        arguments.putString(Constants.MOVIE_ACTORS, item.getActors());
+        arguments.putString(Constants.MOVIE_IMDB_LINK, item.getImdbURL());
+        arguments.putString(Constants.MOVIE_PHOTO, item.getPhotoBase64());
+
+        if (mTwoPane) {
+            MovieDetailFragment fragment = new MovieDetailFragment();
+            fragment.setArguments(arguments);
+            getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.movie_detail_container, fragment)
+                    .commit();
+        } else {
+            Context context = view.getContext();
+            Intent intent = new Intent(context, MovieDetailActivity.class);
+            intent.putExtras(arguments);
+            context.startActivity(intent);
+        }
+    }
+
+    private void loadMovies() {
+        MovieService service = RetrofitClient.getRetrofitInstance().create(MovieService.class);
+        service.getMovies().enqueue(new Callback<List<Movie>>() {
+            @Override
+            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+                populateMovieList((ArrayList<Movie>) response.body());
+            }
+
+            @Override
+            public void onFailure(Call<List<Movie>> call, Throwable t) {
+                Toast.makeText(MovieListActivity.this, t.getLocalizedMessage(), Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void setupRecyclerView(@NonNull RecyclerView recyclerView) {
